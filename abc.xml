@@ -1,2 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<authors>autor1</authors>
+<books>
+<book>
+<authors>
+<author>author1</author>
+<author>author2</author>
+</authors>
+<titles>
+<title lang="pl">tytul1</title>
+<title lang="eng">titile1</title>
+</titles>
+<ISBN>someISBN</ISBN>
+</book>
+<book>
+<authors>
+<author>author3</author>
+<author>author4</author>
+</authors>
+<titles>
+<title lang="de">tytul4</title>
+</titles>
+<ISBN>isbn2</ISBN>
+</book>
+</books>

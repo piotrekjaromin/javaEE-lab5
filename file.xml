@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<books>
+    <book>
+        <authors>
+            <author>def</author>
+        </authors>
+        <isbn>asdfasdf</isbn>
+        <titles>
+            <entry>
+                <key>tyl</key>
+                <value>tas</value>
+            </entry>
+            <entry>
+                <key>asfd</key>
+                <value>fsad</value>
+            </entry>
+        </titles>
+    </book>
+</books>

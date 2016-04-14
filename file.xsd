@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<books>
+    <book>
+        <authors>
+            <author>abc</author>
+            <author>asasdf</author>
+        </authors>
+        <isbn>asdfa</isbn>
+        <titles/>
+    </book>
+    <book>
+        <authors>
+            <author>asdfasf</author>
+        </authors>
+        <isbn>asdfasdf</isbn>
+        <titles>
+            <entry>
+                <key>asdf</key>
+                <value>asdf</value>
+            </entry>
+        </titles>
+    </book>
+</books>

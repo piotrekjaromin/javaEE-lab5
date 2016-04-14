@@ -1,3 +1,4 @@
+import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -14,53 +15,6 @@ import java.util.*;
  * Created by piotrek on 13.04.16.
  */
 
-class Book {
-    private List<String> authors = new ArrayList<String>();
-    private Map<String, String> titles = new HashMap<String, String>();
-    private String isbn;
-
-    public Book(List<String> authors, Map<String, String> titles, String isbn) {
-        this.authors = authors;
-        this.titles = titles;
-        this.isbn = isbn;
-    }
-
-    public List<String> getAuthors() {
-        return authors;
-    }
-
-    public void setAuthors(List<String> authors) {
-        this.authors = authors;
-    }
-
-    public Map<String, String> getTitles() {
-        return titles;
-    }
-
-    public void setTitles(Map<String, String> titles) {
-        this.titles = titles;
-    }
-
-    public void addTitle(String language, String title) {
-        titles.put(language, title);
-    }
-
-    public void addAuthor(String author) {
-        authors.add(author);
-    }
-
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
-    }
-
-    public String toString() {
-        return "authors: " + authors + "\n titles: " + titles + "\n isbn: " + isbn;
-    }
-}
 
 public class main {
     public static void main(String[] args) {
@@ -76,6 +30,7 @@ public class main {
         }
         final Document document= db.newDocument();
         Element rootElement = document.createElement("books");
+        document.appendChild(rootElement);
 
         Scanner keyboard = new Scanner(System.in);
         String author;
@@ -83,7 +38,7 @@ public class main {
         String title;
         String isbn;
         String answer;
-        List<Book> books = new ArrayList<Book>();
+
         while (true) {
             System.out.println("Czy wprowadzic nową książke?");
             if (keyboard.next().equals("nie")) break;
@@ -116,7 +71,7 @@ public class main {
                     } while (language.equals("\n") || title.equals("\n"));
                     titles.put(language, title);
                 }
-            } while (answer.equals("nie"));
+            } while (answer.equals("tak"));
 
             System.out.println("Podaj numer ISBN");
             isbn = keyboard.next();
@@ -124,19 +79,35 @@ public class main {
             System.out.println("Czy dane sa poprawne?");
 
             if (keyboard.next().equals("tak")) {
-                Book book = new Book(authors, titles, isbn);
-                books.add(book);
-                Element elem = document.createElement("book");
-                rootElement.appendChild(elem);
-                elem = document.createElement("authors");
-                rootElement.appendChild(elem);
+
+                Element bookElem = document.createElement("book");
+
+                rootElement.appendChild(bookElem);
+                Element authorsElem = document.createElement("authors");
+                bookElem.appendChild(authorsElem);
 
                 for(String authorFromList : authors) {
-                    elem.appendChild(document.createTextNode(authorFromList));
+                    Element authorElem = document.createElement("author");
+                    authorsElem.appendChild(authorElem);
+                    authorElem.appendChild(document.createTextNode(authorFromList));
+                    authorsElem.appendChild(authorElem);
                 }
-                document.appendChild(elem);
-            }
 
+                Element titlesElem = document.createElement("titles");
+                bookElem.appendChild(titlesElem);
+
+                for(Map.Entry<String, String> entry: titles.entrySet()) {
+                    Element titleElem = document.createElement("title");
+                    Attr attr = document.createAttribute("lang");
+                    attr.setValue(entry.getKey());
+                    titleElem.setAttributeNode(attr);
+                    titleElem.appendChild(document.createTextNode(entry.getValue()));
+                    titlesElem.appendChild(titleElem);
+                }
+                Element isbnElem = document.createElement("ISBN");
+                bookElem.appendChild(isbnElem);
+                isbnElem.appendChild(document.createTextNode(isbn));
+            }
         }
 
         TransformerFactory tf = TransformerFactory.newInstance();
